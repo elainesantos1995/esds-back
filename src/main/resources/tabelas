@@ -1,0 +1,30 @@
+create table funcionario (
+	id integer primary key auto_increment,
+	matricula varchar(40),
+	nome varchar(140),
+	cpf varchar(20),
+	rg varchar(20),
+	endereco_id FOREIGN KEY(id) REFERENCES endereco (id)
+	
+ );
+ 
+ create table endereco(
+	id integer primary key auto_increment,
+	logradouro varchar(150),
+	numero varchar(10),
+	complemento varchar(150),
+	bairro varchar(100),
+	cidade varchar(100),
+	cep varchar(20),
+	pontoDeReferencia varchar(150)
+);
+
+create table beneficiario (
+	id integer primary key auto_increment,
+	matricula varchar(40),
+	nome varchar(140),
+	cpf varchar(20),
+	rg varchar(20),
+	endereco_id FOREIGN KEY(id) REFERENCES endereco (id)
+ );
+

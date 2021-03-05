@@ -11,5 +11,6 @@ public interface BeneficiarioService {
 	void remover(Integer id);
 	Beneficiario buscarPorId(Integer id);
 	List<Beneficiario> buscarTodos();
+	
 
 }

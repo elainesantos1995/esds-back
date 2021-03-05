@@ -106,7 +106,7 @@ public class EntrevistadorResource {
 		funcionario.setSexo(sexo);	
 		
 		enderecos.atualizar(funcionarioEnderecoDTO.getIdEndereco(), endereco);
-//		funcionario.setEndereco(endereco);
+		funcionario.setEndereco(endereco);
 		entrevistadores.atualizar(id, funcionario);
 
 	}

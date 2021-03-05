@@ -38,6 +38,7 @@ public class BeneficiariosResource{
 	@PostMapping()
 	@ResponseStatus(HttpStatus.CREATED)
 	public Beneficiario salvar(@RequestBody BeneficiarioEnderecoDTO beneficiarioEnderecoDTO) {
+			
 		Endereco endereco = new Endereco();
 		endereco.setLogradouro(beneficiarioEnderecoDTO.getLogradouro());
 		endereco.setNumero(beneficiarioEnderecoDTO.getNumero());
@@ -65,6 +66,8 @@ public class BeneficiariosResource{
 		EstadoCivil estadoCivil = EstadoCivil.valueOf(beneficiarioEnderecoDTO.getEstadoCivil());
 		beneficiario.setEstadoCivil(estadoCivil);
 		
+		beneficiario.setImagem(beneficiarioEnderecoDTO.getImagem());
+		
 		enderecos.salvar(endereco);
 		Endereco ultimo = enderecos.retornarEnderecoPorUltimoId();
 		beneficiario.setEndereco(ultimo);
@@ -76,7 +79,7 @@ public class BeneficiariosResource{
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void atualizar(@PathVariable Integer id, @RequestBody BeneficiarioEnderecoDTO beneficiarioEnderecoDTO) {
 		
-Endereco endereco = new Endereco();		
+		Endereco endereco = new Endereco();		
 		
 		endereco.setLogradouro(beneficiarioEnderecoDTO.getLogradouro());
 		endereco.setNumero(beneficiarioEnderecoDTO.getNumero());
@@ -104,6 +107,7 @@ Endereco endereco = new Endereco();
 		EstadoCivil estadoCivil = EstadoCivil.valueOf(beneficiarioEnderecoDTO.getEstadoCivil());
 		beneficiario.setEstadoCivil(estadoCivil);
 
+		beneficiario.setImagem(beneficiarioEnderecoDTO.getImagem());
 		
 		enderecos.atualizar(beneficiarioEnderecoDTO.getIdEndereco(), endereco);
 		beneficiario.setEndereco(endereco);
@@ -141,7 +145,6 @@ Endereco endereco = new Endereco();
 		beneficiarioEnderecoDTO.setTelefone2(beneficiario.getTelefone2());
 		beneficiarioEnderecoDTO.setEmail(beneficiario.getEmail());
 		
-		//Passar a data de nascimento sem a hora
 		beneficiarioEnderecoDTO.setDataNascimento(beneficiario.getDataNascimento());
 		
 		if(beneficiario.getSexo() != null) {
@@ -163,6 +166,8 @@ Endereco endereco = new Endereco();
 		beneficiarioEnderecoDTO.setCep(beneficiario.getEndereco().getCep());
 		beneficiarioEnderecoDTO.setComplemento(beneficiario.getEndereco().getComplemento());
 		beneficiarioEnderecoDTO.setPontoDeReferencia(beneficiario.getEndereco().getPontoDeReferencia());
+		
+		beneficiarioEnderecoDTO.setImagem(beneficiario.getImagem());
 		
 		return beneficiarioEnderecoDTO;
 	}
@@ -187,9 +192,9 @@ Endereco endereco = new Endereco();
 			beneficiario.setCpf(b.getCpf());
 			beneficiario.setTelefone1(b.getTelefone1());
 			beneficiario.setTelefone2(b.getTelefone2());
-			beneficiario.setEmail(b.getEmail());			
-			//Passar a data de nascimento sem a hora
+			beneficiario.setEmail(b.getEmail());
 			beneficiario.setDataNascimento(b.getDataNascimento());
+			beneficiario.setImagem(b.getImagem());
 			
 			if(b.getSexo() != null) {
 				String sexo = b.getSexo().getOpcao();
@@ -199,8 +204,7 @@ Endereco endereco = new Endereco();
 			if(b.getEstadoCivil() != null) {
 				String estadoCivil = b.getEstadoCivil().getEstado();
 				beneficiario.setEstadoCivil(estadoCivil);				
-			}
-			
+			}			
 			
 			beneficiario.setIdEndereco(b.getEndereco().getId());
 			beneficiario.setLogradouro(b.getEndereco().getLogradouro());

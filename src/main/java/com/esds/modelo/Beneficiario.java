@@ -2,16 +2,21 @@ package com.esds.modelo;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import com.esds.enumeracoes.EstadoCivil;
 import com.esds.enumeracoes.Sexo;
 
 @Entity
+@Table(uniqueConstraints={@UniqueConstraint(columnNames={"cpf"})})
 public class Beneficiario {
 	
 	@Id 
@@ -31,11 +36,37 @@ public class Beneficiario {
 	private String telefone2;
 	private String email;
 	
+	@Lob
+    @Column(name = "imagem")
+	private byte[] imagem;
+	
 	@OneToOne
 	private Endereco endereco;
 	
 	public Beneficiario() {
 		
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Beneficiario other = (Beneficiario) obj;
+		if (id != other.id)
+			return false;
+		return true;
 	}
 
 	public int getId() {
@@ -147,6 +178,12 @@ public class Beneficiario {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public byte[] getImagem() {
+		return imagem;
+	}
+	public void setImagem(byte[] imagem) {
+		this.imagem = imagem;
 	}
 	
 

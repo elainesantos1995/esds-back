@@ -8,10 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.esds.excecoes.RegraDeNegocioException;
 import com.esds.modelo.Beneficiario;
-import com.esds.modelo.Funcionario;
 import com.esds.repositorio.Beneficiarios;
-import com.esds.repositorio.Enderecos;
 import com.esds.servico.BeneficiarioService;
 
 @Service
@@ -51,8 +50,11 @@ public class BeneficiarioServiceImpl implements BeneficiarioService{
 	@Override
 	public Beneficiario buscarPorId(Integer id) {
 		 Beneficiario beneficiario = beneficiarios.findById(id)
-				 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Não encontrado"));	
-		 
+				 .orElseThrow(() -> 
+				 
+				 // new ResponseStatusException(HttpStatus.NOT_FOUND, "Não encontrado"));	Aqui
+				 new RegraDeNegocioException("Não foi possível localizar beneficiário com o ID informado!"));	
+
 		 return beneficiario;
 	}
 
@@ -69,5 +71,8 @@ public class BeneficiarioServiceImpl implements BeneficiarioService{
 		return beneficiarios.findByIdBeneficiarioFetchEndereco(id);
 	}
 
+	public List<Beneficiario> findByCPF(String cpf){
+		return beneficiarios.findByCPF(cpf);
+	}
 
 }

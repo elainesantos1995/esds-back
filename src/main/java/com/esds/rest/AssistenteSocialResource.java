@@ -113,7 +113,7 @@ public class AssistenteSocialResource {
 		funcionario.setEmail(funcionarioEnderecoDTO.getEmail());
 		
 		enderecos.atualizar(funcionarioEnderecoDTO.getIdEndereco(), endereco);
-	//	funcionario.setEndereco(endereco);
+		funcionario.setEndereco(endereco);
 		assistentesSociais.atualizar(id, funcionario);
 
 	}

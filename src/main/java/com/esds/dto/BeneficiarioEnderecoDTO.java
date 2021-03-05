@@ -27,6 +27,8 @@ public class BeneficiarioEnderecoDTO {
 	private String cep;
 	private String pontoDeReferencia;
 	
+	private byte[] imagem;
+	
 	
 	public Integer getId() {
 		return id;
@@ -153,6 +155,12 @@ public class BeneficiarioEnderecoDTO {
 	}
 	public void setPontoDeReferencia(String pontoDeReferencia) {
 		this.pontoDeReferencia = pontoDeReferencia;
+	}
+	public byte[] getImagem() {
+		return imagem;
+	}
+	public void setImagem(byte[] imagem) {
+		this.imagem = imagem;
 	}
 		
 }

@@ -106,7 +106,7 @@ public class FacilitadorResource {
 		funcionario.setSexo(sexo);	
 		
 		enderecos.atualizar(funcionarioEnderecoDTO.getIdEndereco(), endereco);
-	//	funcionario.setEndereco(endereco);
+		funcionario.setEndereco(endereco);
 		facilitadores.atualizar(id, funcionario);
 
 	}

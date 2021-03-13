@@ -2,6 +2,8 @@ package com.esds.dto;
 
 import java.util.Date;
 
+import com.esds.modelo.Imagem;
+
 public class BeneficiarioEnderecoDTO {
 	
 	private Integer id;
@@ -17,6 +19,7 @@ public class BeneficiarioEnderecoDTO {
 	private String telefone1;
 	private String telefone2;
 	private String email;
+	private Integer idFoto;
 	
 	private Integer idEndereco;
 	private String logradouro;
@@ -27,7 +30,9 @@ public class BeneficiarioEnderecoDTO {
 	private String cep;
 	private String pontoDeReferencia;
 	
-	private byte[] imagem;
+	private byte[] foto;
+	
+	private Imagem imagem;
 	
 	
 	public Integer getId() {
@@ -156,11 +161,19 @@ public class BeneficiarioEnderecoDTO {
 	public void setPontoDeReferencia(String pontoDeReferencia) {
 		this.pontoDeReferencia = pontoDeReferencia;
 	}
-	public byte[] getImagem() {
+	public byte[] getFoto() {
+		return foto;
+	}
+	public void setFoto(byte[] foto) {
+		this.foto = foto;
+	}
+	public Imagem getImagem() {
 		return imagem;
 	}
-	public void setImagem(byte[] imagem) {
+	public void setImagem(Imagem imagem) {
 		this.imagem = imagem;
 	}
+	
+	
 		
 }

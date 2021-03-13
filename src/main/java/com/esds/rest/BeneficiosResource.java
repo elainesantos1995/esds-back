@@ -16,14 +16,15 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.esds.dto.BeneficioDTO;
+import com.esds.enumeracoes.Periodicidade;
 import com.esds.modelo.Beneficio;
 import com.esds.modelo.ProgramaSocial;
 import com.esds.servico.impl.BeneficioServiceImpl;
 import com.esds.servico.impl.ProgramaSocialServiceImpl;
 
-@CrossOrigin("*")
+@CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("api/beneficios")
+@RequestMapping("/api/beneficios")
 public class BeneficiosResource {
 
 	@Autowired
@@ -33,14 +34,13 @@ public class BeneficiosResource {
 	private ProgramaSocialServiceImpl programas;
 	
 	//Rever a questão do programa
-	@PostMapping()
+	@PostMapping("{idPrograma}")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Beneficio salvar(@RequestBody BeneficioDTO beneficioDTO) {
+	public Beneficio salvar(@RequestBody BeneficioDTO beneficioDTO, @PathVariable Integer idPrograma) {
 
 		Beneficio beneficio = new Beneficio();
 		beneficio.setNome(beneficioDTO.getNome());
 		beneficio.setJustificativa(beneficioDTO.getJustificativa());
-		beneficio.setPeriodicidade(beneficioDTO.getPeriodicidade());
 		beneficio.setControleCarteirinha(beneficioDTO.isControleCarteirinha());
 		beneficio.setControleBiometria(beneficioDTO.isControleBiometria());
 		beneficio.setControleDocumento(beneficioDTO.isControleDocumento());
@@ -49,9 +49,19 @@ public class BeneficiosResource {
 		beneficio.setToleranciaUsosInadimplente(beneficioDTO.getToleranciaUsosInadimplente());
 		beneficio.setTotalRecursosAportados(beneficioDTO.getTotalRecursosAportados());
 		
-		beneficio.setPrograma(beneficioDTO.getPrograma());
+		Periodicidade periodicidade = Periodicidade.valueOf(beneficioDTO.getPeriodicidade());
+		beneficio.setPeriodicidade(periodicidade);
+		
+		ProgramaSocial programa = programas.buscarPorId(idPrograma);
 
-		return this.beneficios.salvar(beneficio);
+		beneficio.setPrograma(programa);
+
+		Beneficio beneficioSalvo = this.beneficios.salvar(beneficio);
+
+		programa.getBeneficios().add(beneficio);
+		programas.atualizar(idPrograma, programa);
+
+		return beneficioSalvo;
 	}
 
 	//Rever a questão do programa
@@ -62,7 +72,7 @@ public class BeneficiosResource {
 		Beneficio beneficio = new Beneficio();
 		beneficio.setNome(beneficioDTO.getNome());
 		beneficio.setJustificativa(beneficioDTO.getJustificativa());
-		beneficio.setPeriodicidade(beneficioDTO.getPeriodicidade());
+		
 		beneficio.setControleCarteirinha(beneficioDTO.isControleCarteirinha());
 		beneficio.setControleBiometria(beneficioDTO.isControleBiometria());
 		beneficio.setControleDocumento(beneficioDTO.isControleDocumento());
@@ -71,9 +81,12 @@ public class BeneficiosResource {
 		beneficio.setToleranciaUsosInadimplente(beneficioDTO.getToleranciaUsosInadimplente());
 		beneficio.setTotalRecursosAportados(beneficioDTO.getTotalRecursosAportados());
 		
-		ProgramaSocial programa = programas.buscarPorId(beneficioDTO.getPrograma().getId());
+		Periodicidade periodicidade = Periodicidade.valueOf(beneficioDTO.getPeriodicidade());
+		beneficio.setPeriodicidade(periodicidade);
+		
+		ProgramaSocial programa = programas.buscarPorId(beneficioDTO.getIdPrograma());
+		
 		beneficio.setPrograma(programa);
-
 		this.beneficios.atualizar(id, beneficio);
 	}
 
@@ -94,5 +107,13 @@ public class BeneficiosResource {
 	public void deletar(@PathVariable Integer id) {
 		this.beneficios.remover(id);
 	}
+	
+	@GetMapping("beneficiosDoPrograma/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public List<Beneficio> buscarBeneficiosDeUmPrograma(@PathVariable Integer id) {
+		System.out.println("aqui");
+		return this.beneficios.listarBeneficiosPrograma(id);
+	}
+
 
 }

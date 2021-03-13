@@ -11,6 +11,7 @@ import com.esds.modelo.AssistenteSocial;
 import com.esds.modelo.Funcionario;
 import com.esds.repositorio.Funcionarios;
 import com.esds.servico.AssistenteSocialService;
+import com.esds.utils.VerificarDisponibilidadeLogin;
 
 @Service
 public class AssistenteSocialServiceImpl implements AssistenteSocialService{

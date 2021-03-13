@@ -171,5 +171,11 @@ public class FuncionariosResource {
 		return funcionariosDTO;
 
 	}
+	
+	@GetMapping("/verificar/{login}")
+	@ResponseStatus(HttpStatus.OK)
+	public boolean verificarDispoibilidadeLogin(@PathVariable String login) {
+		return funcionarioService.verificarDisponibilidadeLogin(login);
+	}
 
 }

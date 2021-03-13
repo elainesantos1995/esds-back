@@ -10,6 +10,7 @@ import com.esds.modelo.Facilitador;
 import com.esds.modelo.Funcionario;
 import com.esds.repositorio.Funcionarios;
 import com.esds.servico.FacilitadorService;
+import com.esds.utils.VerificarDisponibilidadeLogin;
 
 @Service
 public class FacilitadorServiceImpl implements FacilitadorService{

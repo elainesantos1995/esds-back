@@ -6,10 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-
 import com.esds.enumeracoes.Periodicidade;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Beneficio {
@@ -29,10 +26,17 @@ public class Beneficio {
 	private int toleranciaUsosCancelado;	
 	
 	@ManyToOne
-//	@JsonIgnore
 	private ProgramaSocial programa;
 
-
+	@Override
+	public String toString() {
+		return "Beneficio [id=" + id + ", nome=" + nome + ", justificativa=" + justificativa
+				+ ", totalRecursosAportados=" + totalRecursosAportados + ", limiteVagas=" + limiteVagas
+				+ ", controleBiometria=" + controleBiometria + ", controleDocumento=" + controleDocumento
+				+ ", controleCarteirinha=" + controleCarteirinha + ", periodicidade=" + periodicidade
+				+ ", toleranciaUsosInadimplente=" + toleranciaUsosInadimplente + ", toleranciaUsosCancelado="
+				+ toleranciaUsosCancelado + ", programa=" + programa + "]";
+	}
 	public Integer getId() {
 		return id;
 	}

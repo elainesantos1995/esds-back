@@ -1,5 +1,6 @@
 package com.esds.servico.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,6 +60,9 @@ public class BeneficioServiceImpl implements BeneficioService{
 	}
 	
 	public List<Beneficio> listarBeneficiosPrograma(Integer id){
+		
+		System.out.println("______________________________________________________________________________________________________");
+
 		return beneficios.beneficioDeProgramas(id);
 	}
 

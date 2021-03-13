@@ -2,6 +2,7 @@ package com.esds.modelo;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,11 +38,14 @@ public class Beneficiario {
 	private String email;
 	
 	@Lob
-    @Column(name = "imagem")
-	private byte[] imagem;
+    @Column(name = "foto", length = 1000)
+	private byte[] foto;
 	
 	@OneToOne
 	private Endereco endereco;
+	
+	@OneToOne(cascade = CascadeType.REMOVE)
+	private Imagem imagem;
 	
 	public Beneficiario() {
 		
@@ -179,10 +183,20 @@ public class Beneficiario {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public byte[] getImagem() {
+
+	public byte[] getFoto() {
+		return foto;
+	}
+
+	public void setFoto(byte[] foto) {
+		this.foto = foto;
+	}
+
+	public Imagem getImagem() {
 		return imagem;
 	}
-	public void setImagem(byte[] imagem) {
+
+	public void setImagem(Imagem imagem) {
 		this.imagem = imagem;
 	}
 	

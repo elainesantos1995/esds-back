@@ -129,5 +129,5 @@ public class AssistenteSocialResource {
 	public AssistenteSocial buscarPorId(@PathVariable Integer id) {
 		return assistentesSociais.buscarPorId(id);
 	}
-
+	
 }

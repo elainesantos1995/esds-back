@@ -3,7 +3,7 @@ package com.esds.dto;
 import java.util.Date;
 import java.util.List;
 
-import com.esds.modelo.Beneficio;
+import org.springframework.data.annotation.ReadOnlyProperty;
 
 public class ProgramaDTO {
 	
@@ -12,7 +12,10 @@ public class ProgramaDTO {
 	private String descricao;
 	private Date vigenciaInicio;
 	private Date vigenciaTermino;
-	private List<Beneficio> beneficios;
+	
+	@ReadOnlyProperty
+	private List<BeneficioDTO> beneficios;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -43,10 +46,10 @@ public class ProgramaDTO {
 	public void setVigenciaTermino(Date vigenciaTermino) {
 		this.vigenciaTermino = vigenciaTermino;
 	}
-	public List<Beneficio> getBeneficios() {
+	public List<BeneficioDTO> getBeneficios() {
 		return beneficios;
 	}
-	public void setBeneficios(List<Beneficio> beneficios) {
+	public void setBeneficios(List<BeneficioDTO> beneficios) {
 		this.beneficios = beneficios;
 	}
 

@@ -18,7 +18,8 @@ public interface Beneficiarios extends JpaRepository<Beneficiario, Integer> {
 	@Query(value = "select e.* from endereco e left join beneficiario b on e.id=b.id", nativeQuery = true)
 	public Endereco findByIdOrderById();
 	
-	@Query("FROM Beneficiario b JOIN FETCH b.endereco")
+	// Buscar beneficiário com endereço e com imagem
+	@Query("FROM Beneficiario b JOIN FETCH b.endereco JOIN FETCH b.imagem")
 	List<Beneficiario> findByBeneficiarioFetchEagerEndereco();
 	
 	//Utilizado no getByID

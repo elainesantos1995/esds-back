@@ -1,7 +1,15 @@
 package com.esds.rest;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.zip.DataFormatException;
+import java.util.zip.Deflater;
+import java.util.zip.Inflater;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,14 +21,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.esds.dto.BeneficiarioEnderecoDTO;
 import com.esds.enumeracoes.EstadoCivil;
 import com.esds.enumeracoes.Sexo;
 import com.esds.modelo.Beneficiario;
 import com.esds.modelo.Endereco;
+import com.esds.modelo.Imagem;
+import com.esds.repositorio.Imagens;
 import com.esds.servico.impl.BeneficiarioServiceImpl;
 import com.esds.servico.impl.EnderecoServiceImpl;
 
@@ -32,9 +44,12 @@ public class BeneficiariosResource{
 	@Autowired
 	private BeneficiarioServiceImpl beneficiarios;
 	
-	@ Autowired
+	@Autowired
 	private EnderecoServiceImpl enderecos;
-
+	
+	@Autowired
+	private Imagens imagens;
+	
 	@PostMapping()
 	@ResponseStatus(HttpStatus.CREATED)
 	public Beneficiario salvar(@RequestBody BeneficiarioEnderecoDTO beneficiarioEnderecoDTO) {
@@ -47,6 +62,8 @@ public class BeneficiariosResource{
 		endereco.setCep(beneficiarioEnderecoDTO.getCep());
 		endereco.setComplemento(beneficiarioEnderecoDTO.getComplemento());
 		endereco.setPontoDeReferencia(beneficiarioEnderecoDTO.getPontoDeReferencia());
+		
+						
 		
 		Beneficiario beneficiario = new Beneficiario();
 		beneficiario.setNome(beneficiarioEnderecoDTO.getNome());
@@ -66,11 +83,28 @@ public class BeneficiariosResource{
 		EstadoCivil estadoCivil = EstadoCivil.valueOf(beneficiarioEnderecoDTO.getEstadoCivil());
 		beneficiario.setEstadoCivil(estadoCivil);
 		
-		beneficiario.setImagem(beneficiarioEnderecoDTO.getImagem());
+		Optional<Imagem> img = null;
+		Imagem imagem = new Imagem();
+		try {
+			img = imagens.retornarImagemPorUltimoId();
+			imagem.setId(img.get().getId());
+			imagem.setName(img.get().getName());
+			imagem.setType(img.get().getType());
+			imagem.setPicByte(decompressBytes(img.get().getPicByte()));
+			beneficiario.setImagem(imagem);			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+		
+		
 		
 		enderecos.salvar(endereco);
 		Endereco ultimo = enderecos.retornarEnderecoPorUltimoId();
+		
+//		beneficiario.setImagem(ultimaImagem);
 		beneficiario.setEndereco(ultimo);
+		
+		
 		return beneficiarios.salvar(beneficiario);
 
 	}
@@ -106,8 +140,13 @@ public class BeneficiariosResource{
 		
 		EstadoCivil estadoCivil = EstadoCivil.valueOf(beneficiarioEnderecoDTO.getEstadoCivil());
 		beneficiario.setEstadoCivil(estadoCivil);
-
-		beneficiario.setImagem(beneficiarioEnderecoDTO.getImagem());
+		
+		System.out.println();
+		Optional<Imagem> imagem = imagens.retornarImagemPorUltimoId();
+		Imagem nova = new Imagem();
+		nova = imagem.get();
+				
+		beneficiario.setImagem(nova);
 		
 		enderecos.atualizar(beneficiarioEnderecoDTO.getIdEndereco(), endereco);
 		beneficiario.setEndereco(endereco);
@@ -194,7 +233,15 @@ public class BeneficiariosResource{
 			beneficiario.setTelefone2(b.getTelefone2());
 			beneficiario.setEmail(b.getEmail());
 			beneficiario.setDataNascimento(b.getDataNascimento());
-			beneficiario.setImagem(b.getImagem());
+			
+			System.out.println("Aqui foto " + b.getImagem());
+			if(b.getImagem() != null) {		
+				final Optional<Imagem> retrievedImage = imagens.findById(b.getImagem().getId());
+				Imagem img = new Imagem(retrievedImage.get().getName(), retrievedImage.get().getType(),
+				decompressBytes(retrievedImage.get().getPicByte()));
+				beneficiario.setImagem(img);
+				
+			}
 			
 			if(b.getSexo() != null) {
 				String sexo = b.getSexo().getOpcao();
@@ -221,7 +268,58 @@ public class BeneficiariosResource{
 		return beneficiariosDTO;
 
 	}
+	
+	// Comprime osbytes da imagem antes de salvar no banco de dados
+		public static byte[] compressBytes(byte[] data) {
 
+			Deflater deflater = new Deflater();
+
+			deflater.setInput(data);
+
+			deflater.finish();
+
+			ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
+
+			byte[] buffer = new byte[1024];
+
+			while (!deflater.finished()) {
+				int count = deflater.deflate(buffer);
+				outputStream.write(buffer, 0, count);
+			}
+
+			try {
+				outputStream.close();
+			} catch (IOException e) {
+			}
+
+			System.out.println("Compressed Image Byte Size - " + outputStream.toByteArray().length);
+			return outputStream.toByteArray();
+
+		}
+
+		public static byte[] decompressBytes(byte[] data) {
+
+			Inflater inflater = new Inflater();
+			inflater.setInput(data);
+			ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
+			byte[] buffer = new byte[1024];
+
+			try {
+				while (!inflater.finished()) {
+					int count = inflater.inflate(buffer);
+					outputStream.write(buffer, 0, count);
+				}
+				outputStream.close();
+			} catch (IOException ioe) {
+
+			} catch (DataFormatException e) {
+
+			}
+			return outputStream.toByteArray();
+		}
+
+	
+	
 	
 
 }

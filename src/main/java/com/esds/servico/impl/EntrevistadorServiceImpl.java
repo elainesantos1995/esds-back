@@ -10,6 +10,7 @@ import com.esds.modelo.Entrevistador;
 import com.esds.modelo.Funcionario;
 import com.esds.repositorio.Funcionarios;
 import com.esds.servico.EntrevistadorService;
+import com.esds.utils.VerificarDisponibilidadeLogin;
 
 @Service
 public class EntrevistadorServiceImpl implements EntrevistadorService{

@@ -2,6 +2,9 @@ package com.esds.dto;
 
 import com.esds.enumeracoes.Periodicidade;
 import com.esds.modelo.ProgramaSocial;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import org.springframework.data.annotation.ReadOnlyProperty;
 
 public class BeneficioDTO {
 	
@@ -13,10 +16,15 @@ public class BeneficioDTO {
 	private boolean controleBiometria;
 	private boolean controleDocumento;
 	private boolean controleCarteirinha;
-	private Periodicidade periodicidade;
+	private String periodicidade;
 	private int toleranciaUsosInadimplente;
-	private int toleranciaUsosCancelado;	
+	private int toleranciaUsosCancelado;
+	private Integer idPrograma;
+	
+	@ReadOnlyProperty
+	@JsonIgnore
 	private ProgramaSocial programa;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -65,10 +73,10 @@ public class BeneficioDTO {
 	public void setControleCarteirinha(boolean controleCarteirinha) {
 		this.controleCarteirinha = controleCarteirinha;
 	}
-	public Periodicidade getPeriodicidade() {
+	public String getPeriodicidade() {
 		return periodicidade;
 	}
-	public void setPeriodicidade(Periodicidade periodicidade) {
+	public void setPeriodicidade(String periodicidade) {
 		this.periodicidade = periodicidade;
 	}
 	public int getToleranciaUsosInadimplente() {
@@ -88,6 +96,12 @@ public class BeneficioDTO {
 	}
 	public void setPrograma(ProgramaSocial programa) {
 		this.programa = programa;
+	}
+	public Integer getIdPrograma() {
+		return idPrograma;
+	}
+	public void setIdPrograma(Integer idPrograma) {
+		this.idPrograma = idPrograma;
 	}
 	
 	

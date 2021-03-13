@@ -1,20 +1,16 @@
 package esds;
 
-import static org.assertj.core.api.Assertions.assertThatObject;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 import java.util.Date;
 import java.util.Optional;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -24,7 +20,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.esds.enumeracoes.Sexo;
 import com.esds.excecoes.RegraDeNegocioException;
-import com.esds.modelo.Beneficiario;
 import com.esds.modelo.Endereco;
 import com.esds.modelo.Funcionario;
 import com.esds.repositorio.Funcionarios;

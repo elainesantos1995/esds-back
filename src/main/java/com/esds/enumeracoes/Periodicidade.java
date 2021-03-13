@@ -11,7 +11,7 @@ public enum Periodicidade {
 	}
 
 	public String getPeriodo() {
-		return periodo;
+		return this.periodo;
 	}
 
 	public void setPeriodo(String periodo) {

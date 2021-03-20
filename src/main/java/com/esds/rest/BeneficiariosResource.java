@@ -317,7 +317,12 @@ public class BeneficiariosResource{
 			}
 			return outputStream.toByteArray();
 		}
-
+		
+		@GetMapping("/cpf/{cpf}")
+		@ResponseStatus(HttpStatus.OK)
+		public Beneficiario pegarPorCPF(@PathVariable String cpf) {
+			return this.beneficiarios.findByCPF(cpf);
+		}
 	
 	
 	

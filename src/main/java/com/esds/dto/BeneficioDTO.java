@@ -1,6 +1,5 @@
 package com.esds.dto;
 
-import com.esds.enumeracoes.Periodicidade;
 import com.esds.modelo.ProgramaSocial;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

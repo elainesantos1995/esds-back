@@ -1,0 +1,7 @@
+package com.esds.enumeracoes;
+
+public enum DoencasCronicas {
+	
+	HIPERTENSAO, DIABETES, ASMA, CANCER, DOENCA_RENAL, DOENCA_VASCULAR, DOENCA_PULMONAR_CRONICA, PARKINSON, ALZHEIMER;
+
+}

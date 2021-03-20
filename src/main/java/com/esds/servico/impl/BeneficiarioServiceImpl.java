@@ -71,7 +71,7 @@ public class BeneficiarioServiceImpl implements BeneficiarioService{
 		return beneficiarios.findByIdBeneficiarioFetchEndereco(id);
 	}
 
-	public List<Beneficiario> findByCPF(String cpf){
+	public Beneficiario findByCPF(String cpf){
 		return beneficiarios.findByCPF(cpf);
 	}
 

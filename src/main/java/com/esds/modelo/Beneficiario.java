@@ -1,7 +1,7 @@
+
 package com.esds.modelo;
 
 import java.util.Date;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -200,5 +200,5 @@ public class Beneficiario {
 		this.imagem = imagem;
 	}
 	
-
+	
 }

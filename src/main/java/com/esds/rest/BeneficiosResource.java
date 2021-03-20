@@ -33,7 +33,6 @@ public class BeneficiosResource {
 	@Autowired
 	private ProgramaSocialServiceImpl programas;
 	
-	//Rever a questão do programa
 	@PostMapping("{idPrograma}")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Beneficio salvar(@RequestBody BeneficioDTO beneficioDTO, @PathVariable Integer idPrograma) {
@@ -64,7 +63,6 @@ public class BeneficiosResource {
 		return beneficioSalvo;
 	}
 
-	//Rever a questão do programa
 	@PutMapping("{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void atualizar(@PathVariable Integer id, @RequestBody BeneficioDTO beneficioDTO) {

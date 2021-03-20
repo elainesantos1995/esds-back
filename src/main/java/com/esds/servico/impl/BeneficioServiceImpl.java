@@ -1,6 +1,5 @@
 package com.esds.servico.impl;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,7 +55,7 @@ public class BeneficioServiceImpl implements BeneficioService{
 		beneficios.findById(id).map(beneficio -> {
 			this.beneficios.delete(beneficio);
 			return beneficio;
-			}).orElseThrow(() -> new RegraDeNegocioException("Não foi possível localizar beneficio com o ID informado!"));			
+		}).orElseThrow(() -> new RegraDeNegocioException("Não foi possível localizar beneficio com o ID informado!"));			
 	}
 	
 	public List<Beneficio> listarBeneficiosPrograma(Integer id){

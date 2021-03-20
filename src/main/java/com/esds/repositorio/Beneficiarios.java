@@ -27,6 +27,7 @@ public interface Beneficiarios extends JpaRepository<Beneficiario, Integer> {
 	List<Beneficiario> findByIdBeneficiarioFetchEndereco(@Param("id") Integer id);
 	
 	@Query("FROM Beneficiario b WHERE b.cpf = :cpf")
-	List<Beneficiario> findByCPF(@Param("cpf") String cpf);
+//	@Query(value="SELECT b * FROM beneficiario as b where b.cpf = :cpf", nativeQuery = true)
+	Beneficiario findByCPF(@Param("cpf") String cpf);
 
 }

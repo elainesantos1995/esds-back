@@ -63,5 +63,13 @@ public class InscricaoServiceImpl implements InscricaoService{
 	public List<Inscricao> buscarInscricoesDeUmBeneficiario(Integer id) {		
 		return inscricoes.buscarInscricoesDeUmBeneficiario(id);
 	}
+	
+	public List<Inscricao> buscarInscricoesEmUmBeneficio(Integer id){
+		return inscricoes.buscarInscricoesEmUmBeneficio(id);
+	}
+	
+	public List<Inscricao> buscarInscricoesSelecionadas(Integer id){
+		return inscricoes.buscarInscricoesSelecionadas(id);
+	}
 
 }

@@ -1,12 +1,16 @@
 package com.esds.modelo;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.esds.enumeracoes.Periodicidade;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Beneficio {
@@ -25,9 +29,15 @@ public class Beneficio {
 	private int toleranciaUsosInadimplente;
 	private int toleranciaUsosCancelado;	
 	
+	private int totalBeneficios;
+	
+	@OneToMany
+	@JsonIgnore
+	private List<Inscricao> inscricoesContempladas;
+	
 	@ManyToOne
 	private ProgramaSocial programa;
-
+	
 	@Override
 	public String toString() {
 		return "Beneficio [id=" + id + ", nome=" + nome + ", justificativa=" + justificativa
@@ -35,8 +45,9 @@ public class Beneficio {
 				+ ", controleBiometria=" + controleBiometria + ", controleDocumento=" + controleDocumento
 				+ ", controleCarteirinha=" + controleCarteirinha + ", periodicidade=" + periodicidade
 				+ ", toleranciaUsosInadimplente=" + toleranciaUsosInadimplente + ", toleranciaUsosCancelado="
-				+ toleranciaUsosCancelado + ", programa=" + programa + "]";
+				+ toleranciaUsosCancelado + ", totalBeneficios=" + totalBeneficios + ", programa=" + programa + "]";
 	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -109,6 +120,36 @@ public class Beneficio {
 	public void setPrograma(ProgramaSocial programa) {
 		this.programa = programa;
 	}
+	public int getTotalBeneficios() {
+		return totalBeneficios;
+	}
+	public void setTotalBeneficios(int totalBeneficios) {
+		this.totalBeneficios = totalBeneficios;
+	}
+
+	public List<Inscricao> getInscricoesContempladas() {
+		return inscricoesContempladas;
+	}
+
+	public void setInscricoesContempladas(List<Inscricao> inscricoesContempladas) {
+		this.inscricoesContempladas = inscricoesContempladas;
+	}
+
+//	public List<Inscricao> getInscricoesEmLista() {
+//		return inscricoesEmLista;
+//	}
+//
+//	public void setInscricoesEmLista(List<Inscricao> inscricoesEmLista) {
+//		this.inscricoesEmLista = inscricoesEmLista;
+//	}
+//
+//	public List<Inscricao> getInscricoesIndeferidas() {
+//		return inscricoesIndeferidas;
+//	}
+//
+//	public void setInscricoesIndeferidas(List<Inscricao> inscricoesIndeferidas) {
+//		this.inscricoesIndeferidas = inscricoesIndeferidas;
+//	}
 	
 	
 

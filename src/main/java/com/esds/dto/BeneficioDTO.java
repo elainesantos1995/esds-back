@@ -1,7 +1,10 @@
 package com.esds.dto;
 
+import com.esds.modelo.Inscricao;
 import com.esds.modelo.ProgramaSocial;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.List;
 
 import org.springframework.data.annotation.ReadOnlyProperty;
 
@@ -20,9 +23,14 @@ public class BeneficioDTO {
 	private int toleranciaUsosCancelado;
 	private Integer idPrograma;
 	
+	private int totalBeneficios;
+	
 	@ReadOnlyProperty
 	@JsonIgnore
 	private ProgramaSocial programa;
+	
+	@ReadOnlyProperty
+	private List<Inscricao> inscricoesContempladas;
 	
 	public Integer getId() {
 		return id;
@@ -101,6 +109,18 @@ public class BeneficioDTO {
 	}
 	public void setIdPrograma(Integer idPrograma) {
 		this.idPrograma = idPrograma;
+	}
+	public int getTotalBeneficios() {
+		return totalBeneficios;
+	}
+	public void setTotalBeneficios(int totalBeneficios) {
+		this.totalBeneficios = totalBeneficios;
+	}
+	public List<Inscricao> getInscricoesContempladas() {
+		return inscricoesContempladas;
+	}
+	public void setInscricoesContempladas(List<Inscricao> inscricoesContempladas) {
+		this.inscricoesContempladas = inscricoesContempladas;
 	}
 	
 	

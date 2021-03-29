@@ -31,6 +31,7 @@ import com.esds.modelo.Beneficiario;
 import com.esds.modelo.DadosSocioEconomicos;
 import com.esds.servico.impl.BeneficiarioServiceImpl;
 import com.esds.servico.impl.DadosSocioEconomicosServiceImpl;
+import com.esds.utils.Selecao;
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/dadosSocioEconomicos")
@@ -90,7 +91,10 @@ public class DadosSocioEconomicosResource {
 		Date dataUltimaAtualizao = new Date();
 		dadosSocioeconomicos.setDataUltimaAtualizacao(dataUltimaAtualizao);
 		
-		dadosSocioeconomicos.setPontuacao(0);
+		Selecao selecao = new Selecao();
+		
+		//Teste Aqui
+		dadosSocioeconomicos.setPontuacao(selecao.calcularPontuacao(dadosSocioeconomicos));
 		
 		try {
 			Beneficiario beneficiarioTitular = beneficiarios.findByCPF(idBeneficiario);

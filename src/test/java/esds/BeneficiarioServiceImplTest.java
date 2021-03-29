@@ -21,6 +21,7 @@ import com.esds.enumeracoes.Sexo;
 import com.esds.excecoes.RegraDeNegocioException;
 import com.esds.modelo.Beneficiario;
 import com.esds.modelo.Endereco;
+import com.esds.modelo.Imagem;
 import com.esds.repositorio.Beneficiarios;
 import com.esds.servico.impl.BeneficiarioServiceImpl;
 
@@ -38,6 +39,7 @@ public class BeneficiarioServiceImplTest {
 
 	Beneficiario beneficiario;
 	Endereco endereco;
+	Imagem imagem;
 
 	@Before
 	public void setup() {
@@ -65,6 +67,10 @@ public class BeneficiarioServiceImplTest {
 		endereco.setPontoDeReferencia("Referencia Teste");
 
 		beneficiario.setEndereco(endereco);
+		
+		imagem = new Imagem();
+		imagem.setId(1);
+		
 	}
 	
 	@Test
@@ -134,6 +140,10 @@ public class BeneficiarioServiceImplTest {
 	public void testeBuscarBeneficiarios() {
 		List<Beneficiario> beneficiarios = beneficiarioServiceImpl.buscarTodos();
 		assertThatObject(beneficiarios);
+	}
+	
+	public void atualizarImgBeneficiario() {
+		
 	}
 	
 }

@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.esds.excecoes.RegraDeNegocioException;
-import com.esds.modelo.Inscricao;
 import com.esds.modelo.UsoDeBeneficio;
 import com.esds.repositorio.UsosDeBeneficios;
 import com.esds.servico.UsoDeBeneficioService;
@@ -25,13 +24,16 @@ public class UsoDeBeneficioServiceImpl implements UsoDeBeneficioService{
 
 	@Override
 	public void atualizar(Integer id, UsoDeBeneficio uso) {
-		Optional<UsoDeBeneficio> usoRetornado = usos.findById(id);
 		
-		if(usoRetornado.isPresent()) {
+		Optional<UsoDeBeneficio> usoRecuperado = usos.findById(id);
+		
+		if(usoRecuperado.isPresent()) {
 			uso.setId(id);
-			usos.save(uso);
-		}
-		
+			usos.save(uso);			
+		}else {
+			RegraDeNegocioException exception = new RegraDeNegocioException("Não foi possível localizar Uso De Benefício com o ID informado!");
+			throw exception;
+		}	
 	}
 
 	@Override
@@ -56,13 +58,10 @@ public class UsoDeBeneficioServiceImpl implements UsoDeBeneficioService{
 		return usos.findAll();
 	}
 
-	@Override
-	public List<UsoDeBeneficio> buscarUsoDeUmBeneficiario(String cpf) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<UsoDeBeneficio> buscarUsoDeUmBeneficiario(Integer id) {
+		return usos.buscarUsoDeUmBeneficiario(id);
 	}
 
-	@Override
 	public List<UsoDeBeneficio> buscarUsoDeBeneficiarioEmPrograma(String cpf, Integer idPrograma) {
 		// TODO Auto-generated method stub
 		return null;

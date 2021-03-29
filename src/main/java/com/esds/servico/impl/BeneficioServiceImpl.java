@@ -59,9 +59,6 @@ public class BeneficioServiceImpl implements BeneficioService{
 	}
 	
 	public List<Beneficio> listarBeneficiosPrograma(Integer id){
-		
-		System.out.println("______________________________________________________________________________________________________");
-
 		return beneficios.beneficioDeProgramas(id);
 	}
 

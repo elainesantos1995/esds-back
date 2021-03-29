@@ -21,16 +21,25 @@ public class UsoDeBeneficio {
 	private boolean controleDocumento;
 	private boolean controleCarteirinha;
 	
-	@ManyToOne(cascade={CascadeType.ALL})
+	@ManyToOne
 	private Inscricao inscricao;
 	
-	@OneToOne(cascade = CascadeType.ALL)  
+	@OneToOne  
 	private Beneficio beneficio;
 	
 	public UsoDeBeneficio(){
 		
-	}
+	}	
 	
+	@Override
+	public String toString() {
+		return "UsoDeBeneficio [id=" + id + ", dataDoUso=" + dataDoUso + ", controleBiometria=" + controleBiometria
+				+ ", controleDocumento=" + controleDocumento + ", controleCarteirinha=" + controleCarteirinha
+				+ ", inscricao=" + inscricao + ", beneficio=" + beneficio + "]";
+	}
+
+
+
 	public Integer getId() {
 		return this.id;
 	}	
@@ -70,5 +79,14 @@ public class UsoDeBeneficio {
 		this.inscricao = inscricao;
 	}
 
+	public Beneficio getBeneficio() {
+		return beneficio;
+	}
+
+	public void setBeneficio(Beneficio beneficio) {
+		this.beneficio = beneficio;
+	}
+
+	
 	
 }

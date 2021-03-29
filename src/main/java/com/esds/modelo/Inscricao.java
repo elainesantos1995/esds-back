@@ -1,22 +1,14 @@
 package com.esds.modelo;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-import org.springframework.data.annotation.ReadOnlyProperty;
-
 import com.esds.enumeracoes.StatusInscricao;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Inscricao {
@@ -32,18 +24,10 @@ public class Inscricao {
 	private int quantBeneficiosRetirados;
 	
 	@ManyToOne
-//	@JsonIgnore
 	private Beneficiario beneficiario;
-	
-//	@OneToMany
-//	@JsonIgnore
-//	private List<Beneficio> benefios;
-	
 
 	@OneToOne
-//	@JsonIgnore
-	private Beneficio beneficio;
-	
+	private Beneficio beneficio;	
 	
 	public Inscricao() {
 		

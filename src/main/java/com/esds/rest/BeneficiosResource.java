@@ -16,10 +16,14 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.esds.dto.BeneficioDTO;
+import com.esds.dto.InscricaoDTO;
 import com.esds.enumeracoes.Periodicidade;
+import com.esds.enumeracoes.StatusInscricao;
 import com.esds.modelo.Beneficio;
+import com.esds.modelo.Inscricao;
 import com.esds.modelo.ProgramaSocial;
 import com.esds.servico.impl.BeneficioServiceImpl;
+import com.esds.servico.impl.InscricaoServiceImpl;
 import com.esds.servico.impl.ProgramaSocialServiceImpl;
 
 @CrossOrigin(origins = "*")
@@ -32,6 +36,9 @@ public class BeneficiosResource {
 	
 	@Autowired
 	private ProgramaSocialServiceImpl programas;
+	
+	@Autowired
+	private InscricaoServiceImpl inscricoes;
 	
 	@PostMapping("{idPrograma}")
 	@ResponseStatus(HttpStatus.CREATED)
@@ -47,6 +54,7 @@ public class BeneficiosResource {
 		beneficio.setToleranciaUsosCancelado(beneficioDTO.getToleranciaUsosCancelado());
 		beneficio.setToleranciaUsosInadimplente(beneficioDTO.getToleranciaUsosInadimplente());
 		beneficio.setTotalRecursosAportados(beneficioDTO.getTotalRecursosAportados());
+		beneficio.setTotalBeneficios(beneficioDTO.getTotalBeneficios());
 		
 		Periodicidade periodicidade = Periodicidade.valueOf(beneficioDTO.getPeriodicidade());
 		beneficio.setPeriodicidade(periodicidade);
@@ -78,6 +86,7 @@ public class BeneficiosResource {
 		beneficio.setToleranciaUsosCancelado(beneficioDTO.getToleranciaUsosCancelado());
 		beneficio.setToleranciaUsosInadimplente(beneficioDTO.getToleranciaUsosInadimplente());
 		beneficio.setTotalRecursosAportados(beneficioDTO.getTotalRecursosAportados());
+		beneficio.setTotalBeneficios(beneficioDTO.getTotalBeneficios());
 		
 		Periodicidade periodicidade = Periodicidade.valueOf(beneficioDTO.getPeriodicidade());
 		beneficio.setPeriodicidade(periodicidade);
@@ -112,6 +121,7 @@ public class BeneficiosResource {
 		System.out.println("aqui");
 		return this.beneficios.listarBeneficiosPrograma(id);
 	}
-
-
+	
+	 
+	
 }

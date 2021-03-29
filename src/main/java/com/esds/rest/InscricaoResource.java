@@ -18,13 +18,11 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.esds.dto.InscricaoDTO;
-import com.esds.enumeracoes.Sexo;
+import com.esds.dto.InscricaoSelecionadaDTO;
 import com.esds.enumeracoes.StatusInscricao;
 import com.esds.modelo.Beneficiario;
 import com.esds.modelo.Beneficio;
-import com.esds.modelo.Endereco;
 import com.esds.modelo.Inscricao;
-import com.esds.repositorio.Beneficios;
 import com.esds.servico.impl.BeneficiarioServiceImpl;
 import com.esds.servico.impl.BeneficioServiceImpl;
 import com.esds.servico.impl.InscricaoServiceImpl;
@@ -114,7 +112,6 @@ public class InscricaoResource {
 		inscricaoDTO.setIdBeneficio(inscricao.getBeneficio().getId());
 		
 		return inscricaoDTO;
-	//	return inscricoes.buscarPorId(id);
 	}
 	
 	@GetMapping
@@ -122,4 +119,68 @@ public class InscricaoResource {
 	public List<Inscricao> buscarTodos(){
 		return inscricoes.buscarTodos();
 	}
+	
+	@GetMapping("/inscricoes/beneficios/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public List<Inscricao> buscarInscricoesEmUmBeneficio(@PathVariable Integer id){
+		return inscricoes.buscarInscricoesEmUmBeneficio(id);
+	}
+	
+	@PutMapping("beneficios/selecionados/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public List<Inscricao> selecionarInscricoes(@PathVariable Integer id, @RequestBody List<InscricaoDTO> inscricoes){
+		
+		Beneficio beneficio = this.beneficios.buscarPorId(id);
+		List<Inscricao> inscricoesDoPrograma = new ArrayList<Inscricao>();
+		List<Inscricao> inscricoesTotal = this.inscricoes.buscarInscricoesEmUmBeneficio(id);
+		
+		for(InscricaoDTO inscricaoDTO: inscricoes) {
+			Inscricao inscricao = this.inscricoes.buscarPorId(inscricaoDTO.getId());
+			inscricao.setStatus(StatusInscricao.DEFERIDA);
+			inscricoesDoPrograma.add(inscricao);
+			inscricao.setQuantBeneficiosASeremRetiradados(beneficio.getTotalBeneficios());
+			this.inscricoes.atualizar(inscricaoDTO.getId(), inscricao);
+		}
+		
+		for(Inscricao insc: inscricoesTotal) {
+			if(insc.getStatus() == StatusInscricao.EM_ANALISE) {
+				insc.setStatus(StatusInscricao.EM_LISTA);
+				this.inscricoes.atualizar(insc.getId(), insc);
+			}
+		}
+		beneficio.setInscricoesContempladas(inscricoesDoPrograma);
+		
+		this.beneficios.atualizar(id, beneficio);
+		return beneficio.getInscricoesContempladas();
+	}
+	
+	@GetMapping("listagem/selecionados/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public List<InscricaoSelecionadaDTO> buscarInscricoesSelecionadas(@PathVariable Integer id){
+		
+		List<Inscricao> inscricoesRetornadas = this.inscricoes.buscarInscricoesSelecionadas(id);
+		List<InscricaoSelecionadaDTO> inscricoesContempladas = new ArrayList<InscricaoSelecionadaDTO>();
+		
+		for(Inscricao insc: inscricoesRetornadas) {
+			
+			InscricaoSelecionadaDTO insSelDTO = new InscricaoSelecionadaDTO();
+			insSelDTO.setId(insc.getId());
+			insSelDTO.setBeneficio(insc.getBeneficio().getNome());
+			insSelDTO.setStatus(insc.getStatus().getStatus());
+			insSelDTO.setNome(insc.getBeneficiario().getNome());
+			insSelDTO.setCpf(insc.getBeneficiario().getCpf());
+			
+			inscricoesContempladas.add(insSelDTO);
+		}
+		
+		return inscricoesContempladas;
+	}
+	
+	@GetMapping("/inscricoes/beneficiario/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public List<Inscricao> buscarInscricoesDeUmBeneficiario(@PathVariable Integer id){
+		return inscricoes.buscarInscricoesDeUmBeneficiario(id);
+	}
+
+	
 }

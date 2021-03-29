@@ -11,7 +11,5 @@ public interface UsoDeBeneficioService {
 	void remover(Integer id);
 	UsoDeBeneficio buscarPorId(Integer id);
 	List<UsoDeBeneficio> buscarTodos();
-	List<UsoDeBeneficio> buscarUsoDeUmBeneficiario(String cpf);
-	List<UsoDeBeneficio> buscarUsoDeBeneficiarioEmPrograma(String cpf, Integer idPrograma);
 
 }

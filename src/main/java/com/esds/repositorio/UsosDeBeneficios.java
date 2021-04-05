@@ -11,7 +11,9 @@ import com.esds.modelo.UsoDeBeneficio;
 public interface UsosDeBeneficios extends JpaRepository<UsoDeBeneficio, Integer>{
 	
 	@Query("FROM UsoDeBeneficio u JOIN FETCH u.inscricao JOIN FETCH u.beneficio WHERE u.inscricao.id = :id")
-//	@Query("FROM UsoDeBeneficio u WHERE u.inscricao.id = :id")
 	public List<UsoDeBeneficio> buscarUsoDeUmBeneficiario(@Param("id") Integer id);
+	
+	@Query("FROM UsoDeBeneficio u JOIN FETCH u.inscricao JOIN FETCH u.inscricao.beneficiario WHERE u.beneficio.id = :id")
+	public List<UsoDeBeneficio> buscarUsoDeUmBeneficio(@Param("id") Integer id);
 
 }

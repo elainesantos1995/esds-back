@@ -60,4 +60,8 @@ public class ProgramaSocialServiceImpl implements ProgramaSocialService{
 	public List<ProgramaSocial> findByIdProgramaFetchBeneficio(Integer id){
 		return this.programas.findByIdProgramaFetchBeneficio(id);
 	}
+	
+	public List<ProgramaSocial> findByAnoProgramaFetchBeneficio(Integer ano){
+		return this.programas.findByAnoProgramaFetchBeneficio(ano);
+	}
 }

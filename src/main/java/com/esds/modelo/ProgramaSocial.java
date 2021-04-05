@@ -23,6 +23,7 @@ public class ProgramaSocial {
 	private String descricao;
 	private Date vigenciaInicio;
 	private Date vigenciaTermino;
+	private Integer ano;
 	
 	@OneToMany(cascade = CascadeType.REMOVE, mappedBy = "programa", fetch = FetchType.LAZY)
 	@JsonIgnore
@@ -31,7 +32,15 @@ public class ProgramaSocial {
 	public ProgramaSocial() {
 	}
 	
-	
+	@Override
+	public String toString() {
+		return "ProgramaSocial [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", vigenciaInicio="
+				+ vigenciaInicio + ", vigenciaTermino=" + vigenciaTermino + ", ano=" + ano + ", beneficios="
+				+ beneficios + "]";
+	}
+
+
+
 	public Integer getId() {
 		return id;
 	}
@@ -70,4 +79,12 @@ public class ProgramaSocial {
 	public void setBeneficios(List<Beneficio> beneficios) {
 		this.beneficios = beneficios;
 	}
+	public int getAno() {
+		return ano;
+	}
+	public void setAno(int ano) {
+		this.ano = ano;
+	}
+	
+	
 }

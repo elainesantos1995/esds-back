@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.esds.dto.BeneficioDTO;
 import com.esds.dto.ProgramaDTO;
-import com.esds.enumeracoes.Periodicidade;
 import com.esds.modelo.Beneficio;
 import com.esds.modelo.ProgramaSocial;
 import com.esds.servico.impl.ProgramaSocialServiceImpl;
@@ -40,6 +39,7 @@ public class ProgramasEBeneficiosResource{
 		programa.setDescricao(programaDTO.getDescricao());
 		programa.setVigenciaInicio(programaDTO.getVigenciaInicio());
 		programa.setVigenciaTermino(programaDTO.getVigenciaTermino());
+		programa.setAno(programaDTO.getVigenciaInicio().getYear());
 		
 		ProgramaSocial programaSalvo = this.programas.salvar(programa);		
 			
@@ -56,6 +56,7 @@ public class ProgramasEBeneficiosResource{
 		programa.setDescricao(programaDTO.getDescricao());
 		programa.setVigenciaInicio(programaDTO.getVigenciaInicio());
 		programa.setVigenciaTermino(programaDTO.getVigenciaTermino());
+		programa.setAno(programaDTO.getVigenciaInicio().getYear());
 
 		this.programas.atualizar(id, programa);			
 	}	
@@ -74,6 +75,7 @@ public class ProgramasEBeneficiosResource{
 			programaDTO.setVigenciaInicio(programa.getVigenciaInicio());
 			programaDTO.setVigenciaTermino(programa.getVigenciaTermino());
 			programaDTO.setBeneficios(new ArrayList<BeneficioDTO>());
+			programaDTO.setAno(programa.getAno());
 
 			for(Beneficio beneficio : programa.getBeneficios()) {
 				BeneficioDTO beneficioDTO = new BeneficioDTO();
@@ -85,12 +87,7 @@ public class ProgramasEBeneficiosResource{
 				beneficioDTO.setControleBiometria(beneficio.isControleBiometria());
 				beneficioDTO.setControleDocumento(beneficio.isControleDocumento());
 				beneficioDTO.setControleCarteirinha(beneficio.isControleCarteirinha());
-//				
-//				if(!beneficio.getPeriodicidade().getPeriodo().equals(null)) {
-//					String periodicidade = beneficio.getPeriodicidade().getPeriodo();
-//					beneficioDTO.setPeriodicidade(periodicidade);					
-//				}
-				
+
 				beneficioDTO.setToleranciaUsosInadimplente(beneficio.getToleranciaUsosInadimplente());
 				beneficioDTO.setToleranciaUsosCancelado(beneficio.getToleranciaUsosCancelado());
 				programaDTO.getBeneficios().add(beneficioDTO);
@@ -113,6 +110,13 @@ public class ProgramasEBeneficiosResource{
 	@ResponseStatus(HttpStatus.OK)
 	public void deletar(@PathVariable Integer id) {
 		this.programas.remover(id);
+	}
+	
+	@GetMapping("buscar/ano/{ano}")
+	@ResponseStatus(HttpStatus.OK)
+	public List<ProgramaSocial> buscarPorAno(@PathVariable Integer ano) {
+		System.out.println("Busca por ano");
+		return this.programas.findByAnoProgramaFetchBeneficio(ano);
 	}
 }
 

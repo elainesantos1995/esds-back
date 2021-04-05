@@ -10,7 +10,6 @@ import com.esds.modelo.Beneficio;
 
 public interface Beneficios extends JpaRepository<Beneficio, Integer>{
 	
-//	@Query(value = "select * from beneficio as b where b.programa_id=:id", nativeQuery = true)
 	@Query("FROM Beneficio b WHERE b.programa.id = :id")
 	List<Beneficio> beneficioDeProgramas(@Param("id") Integer id);
 

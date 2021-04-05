@@ -85,5 +85,14 @@ public class UsoDeBeneficioResource{
 	public List<UsoDeBeneficio> buscarUsoDeUmBeneficiario(@PathVariable Integer id) {		
 		return usos.buscarUsoDeUmBeneficiario(id);
 	}
+	
+	@GetMapping("usos/beneficio/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public List<UsoDeBeneficio> buscarUsoDeUmBeneficio(@PathVariable Integer id){
+		
+		List<UsoDeBeneficio> lista = this.usos.buscarUsoDeUmBeneficio(id);
+		
+		return lista;
+	}
 
 }

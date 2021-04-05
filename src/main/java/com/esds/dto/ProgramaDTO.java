@@ -11,7 +11,8 @@ public class ProgramaDTO {
 	private String nome;
 	private String descricao;
 	private Date vigenciaInicio;
-	private Date vigenciaTermino;
+	private Date vigenciaTermino; 
+	private Integer ano;
 	
 	@ReadOnlyProperty
 	private List<BeneficioDTO> beneficios;
@@ -52,5 +53,10 @@ public class ProgramaDTO {
 	public void setBeneficios(List<BeneficioDTO> beneficios) {
 		this.beneficios = beneficios;
 	}
-
+	public int getAno() {
+		return ano;
+	}
+	public void setAno(int ano) {
+		this.ano = ano;
+	}
 }

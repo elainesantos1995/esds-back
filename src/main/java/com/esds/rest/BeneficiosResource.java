@@ -100,7 +100,8 @@ public class BeneficiosResource {
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
 	public List<Beneficio> buscarTodos() {
-		return this.beneficios.buscarTodos();
+		List<Beneficio> lista = this.beneficios.buscarTodos();
+		return lista;
 	}
 
 	@GetMapping("{id}")

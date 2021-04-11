@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.esds.dto.FuncionarioEnderecoDTO;
 import com.esds.excecoes.RegraDeNegocioException;
 import com.esds.excecoes.SenhaInvalidaException;
 import com.esds.modelo.Funcionario;
@@ -96,9 +97,16 @@ public class FuncionarioServiceImpl implements FuncionarioService, UserDetailsSe
 		return funcionarios.findByIdFuncionarioFetchEndereco(id);
 	}
 	
-	public boolean verificarDisponibilidadeLogin(String login) {
-		Optional<Funcionario> funcionario = funcionarios.verificarDisponibilidadeLogin(login);
-		return funcionario.isPresent();
+	public Funcionario verificarDisponibilidadeLogin(String login) {
+		
+		List<Funcionario> lista = funcionarios.verificarDisponibilidadeLogin(login);
+				
+		if(lista.size() > 0) {
+			return lista.get(0);
+		}if (lista.size() == 0) {
+			return null;			
+		}
+		return null;
 	}
 
 }

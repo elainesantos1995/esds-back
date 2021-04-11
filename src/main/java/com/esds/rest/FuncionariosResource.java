@@ -94,7 +94,6 @@ public class FuncionariosResource {
 		funcionarioEnderecoDTO.setLogin(funcionarioRetornado.getLogin());
 		funcionarioEnderecoDTO.setEmail(funcionarioRetornado.getEmail());
 		
-		//Passar a data de nascimento sem a hora
 		funcionarioEnderecoDTO.setDataNascimento(funcionarioRetornado.getDataNascimento());
 		
 		if(funcionarioRetornado.getSexo() != null) {
@@ -174,7 +173,13 @@ public class FuncionariosResource {
 	
 	@GetMapping("/verificar/{login}")
 	@ResponseStatus(HttpStatus.OK)
-	public boolean verificarDispoibilidadeLogin(@PathVariable String login) {
+	public Funcionario verificarDispoibilidadeLogin(@PathVariable String login) {
+		
+		Funcionario f = funcionarioService.verificarDisponibilidadeLogin(login);
+		
+		if(f != null) {
+			System.out.println(f.toString());			
+		}
 		return funcionarioService.verificarDisponibilidadeLogin(login);
 	}
 

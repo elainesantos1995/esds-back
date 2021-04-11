@@ -91,9 +91,10 @@ public class DadosSocioEconomicosResource {
 		Date dataUltimaAtualizao = new Date();
 		dadosSocioeconomicos.setDataUltimaAtualizacao(dataUltimaAtualizao);
 		
+//		dadosSocioeconomicos.setParecer(dadosDTO.getParecer());
+		
 		Selecao selecao = new Selecao();
 		
-		//Teste Aqui
 		dadosSocioeconomicos.setPontuacao(selecao.calcularPontuacao(dadosSocioeconomicos));
 		
 		try {
@@ -156,6 +157,8 @@ public class DadosSocioEconomicosResource {
 		dadosSocioeconomicos.setPontuacao(dadosDTO.getPontuacao());
 		
 		dadosSocioeconomicos.setRendaFamiliar(dadosDTO.getRendaFamiliar());
+		
+		dadosSocioeconomicos.setParecer(dadosDTO.getParecer());
 				
 		try {
 			Beneficiario beneficiarioTitular = beneficiarios.findByCPF(dadosDTO.getIdBeneficiario());
@@ -213,6 +216,8 @@ public class DadosSocioEconomicosResource {
 		dadosDTO.setDataPreenchimento(dadosSocioeconomicos.getDataPreenchimento());
 		dadosDTO.setDataUltimaAtualizacao(dadosSocioeconomicos.getDataUltimaAtualizacao());
 		dadosDTO.setPontuacao(dadosSocioeconomicos.getPontuacao());
+		
+		dadosDTO.setParecer(dadosSocioeconomicos.getParecer());
 		
 		return dadosDTO;
 	}

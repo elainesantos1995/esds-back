@@ -39,6 +39,8 @@ public class DadosSocioEconomicosDTO {
 	private Date dataUltimaAtualizacao;
 	private float pontuacao;
 	
+	private String parecer;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -278,5 +280,15 @@ public class DadosSocioEconomicosDTO {
 	public void setPontuacao(float pontuacao) {
 		this.pontuacao = pontuacao;
 	}
+
+	public String getParecer() {
+		return parecer;
+	}
+
+	public void setParecer(String parecer) {
+		this.parecer = parecer;
+	}
+	
+	
 
 }

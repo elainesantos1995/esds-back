@@ -33,7 +33,7 @@ public class Funcionario {
 	private String matricula;	
 	private String nome;	
 	private Date dataNascimento;
-	@Column(unique = true)
+//	@Column(unique = true)
 	private String cpf;	
 	private String rg;	
 	private String rgDataEmissao;	
@@ -153,6 +153,14 @@ public class Funcionario {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	@Override
+	public String toString() {
+		return "Funcionario [id=" + id + ", admin=" + admin + ", senha=" + senha + ", matricula=" + matricula
+				+ ", nome=" + nome + ", dataNascimento=" + dataNascimento + ", cpf=" + cpf + ", rg=" + rg
+				+ ", rgDataEmissao=" + rgDataEmissao + ", rgOrgaoEmissor=" + rgOrgaoEmissor + ", login=" + login
+				+ ", tipo=" + tipo + ", telefone1=" + telefone1 + ", telefone2=" + telefone2 + ", sexo=" + sexo
+				+ ", email=" + email + ", endereco=" + endereco + "]";
 	}
 	
 	

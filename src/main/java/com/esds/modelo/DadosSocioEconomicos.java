@@ -56,6 +56,8 @@ public class DadosSocioEconomicos {
 	private Date dataUltimaAtualizacao;
 	private float pontuacao;
 	
+	private String parecer;
+	
 	
 	@ManyToOne
 	private Beneficiario beneficiarioTitular;
@@ -298,6 +300,14 @@ public class DadosSocioEconomicos {
 
 	public void setPontuacao(float pontuacao) {
 		this.pontuacao = pontuacao;
+	}
+
+	public String getParecer() {
+		return parecer;
+	}
+
+	public void setParecer(String parecer) {
+		this.parecer = parecer;
 	}
 	
 	

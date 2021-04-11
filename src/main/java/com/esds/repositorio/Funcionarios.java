@@ -18,8 +18,8 @@ public interface Funcionarios extends JpaRepository<Funcionario, Integer>{
 	@Query("from AssistenteSocial where id = :id")
 	Optional<AssistenteSocial> findAssistenteSocialById(@Param("id") Integer id);
 	
-	@Query("FROM Funcionario WHERE login = :login")
-	Optional<Funcionario> verificarDisponibilidadeLogin(@Param("login") String login);
+	@Query("FROM Funcionario f WHERE f.login = :login")
+	List<Funcionario> verificarDisponibilidadeLogin(@Param("login") String login);
 	 
 	Optional<Funcionario> findByLogin(String login);
 	

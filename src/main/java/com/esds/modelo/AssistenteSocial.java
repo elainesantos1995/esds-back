@@ -15,6 +15,9 @@ public class AssistenteSocial extends Funcionario{
 		this.matriculaCFESS = matriculaCFESS;
 	}
 
+	public AssistenteSocial() {
+		
+	}
 	
 
 }

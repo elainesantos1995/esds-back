@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 @Entity
 public class Entrevistador extends Funcionario{
 
-	
+	public Entrevistador() {
+		
+	}
 
 }

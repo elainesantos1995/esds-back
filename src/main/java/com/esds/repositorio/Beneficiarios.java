@@ -14,7 +14,7 @@ public interface Beneficiarios extends JpaRepository<Beneficiario, Integer> {
 	@Query(value = "SELECT e.* FROM endereco e LEFT JOIN beneficiario b ON e.id=b.id", nativeQuery = true)
 	public Endereco retornarEndereco();
 	
-	//Deletar se estiver sem uso (verificar)
+	//Devo deletar, preciso ver
 	@Query(value = "select e.* from endereco e left join beneficiario b on e.id=b.id", nativeQuery = true)
 	public Endereco findByIdOrderById();
 	
@@ -22,12 +22,11 @@ public interface Beneficiarios extends JpaRepository<Beneficiario, Integer> {
 	@Query("FROM Beneficiario b JOIN FETCH b.endereco JOIN FETCH b.imagem")
 	List<Beneficiario> findByBeneficiarioFetchEagerEndereco();
 	
-	//Utilizado no getByID
+	//getByID
 	@Query("FROM Beneficiario b JOIN FETCH b.endereco WHERE b.id = :id")
 	List<Beneficiario> findByIdBeneficiarioFetchEndereco(@Param("id") Integer id);
 	
 	@Query("FROM Beneficiario b WHERE b.cpf = :cpf")
-//	@Query(value="SELECT b * FROM beneficiario as b where b.cpf = :cpf", nativeQuery = true)
 	Beneficiario findByCPF(@Param("cpf") String cpf);
 
 }

@@ -21,7 +21,11 @@ public interface Funcionarios extends JpaRepository<Funcionario, Integer>{
 	@Query("FROM Funcionario f WHERE f.login = :login")
 	List<Funcionario> verificarDisponibilidadeLogin(@Param("login") String login);
 	 
+	//consulta dea autenticação
 	Optional<Funcionario> findByLogin(String login);
+	
+	@Query("FROM Funcionario f WHERE f.cpf = :cpf")
+	Funcionario findByCPF(@Param("cpf") String cpf);
 	
 	@Query("FROM Funcionario f JOIN FETCH f.endereco")
 	List<Funcionario> findByFuncionarioFetchEagerEndereco();

@@ -19,7 +19,7 @@ import com.esds.enumeracoes.Sexo;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "TipoFuncionario")
-@Table(uniqueConstraints={@UniqueConstraint(columnNames={"cpf"})})
+//@Table(uniqueConstraints={@UniqueConstraint(columnNames={"cpf"})})
 public class Funcionario {
 	
 	@Id 

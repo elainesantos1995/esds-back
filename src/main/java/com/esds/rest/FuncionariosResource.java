@@ -3,6 +3,10 @@ package com.esds.rest;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -183,4 +187,23 @@ public class FuncionariosResource {
 		return funcionarioService.verificarDisponibilidadeLogin(login);
 	}
 
+	@GetMapping("/paginacao")
+	@ResponseStatus(HttpStatus.OK)
+	public Page<Funcionario> findAllPageable(Pageable pageable) {
+		
+		Pageable sortedByIdDesc = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by("id").descending());
+		return funcionarioService.findAllPageable(sortedByIdDesc);
+	}
+	
+	@GetMapping("/verificar/cpf/{cpf}")
+	@ResponseStatus(HttpStatus.OK)
+	public Funcionario buscarPorCPF(@PathVariable String cpf) {
+		
+		Funcionario f = funcionarioService.findByCPF(cpf);
+		
+		if(f != null) {
+			System.out.println(f.toString());			
+		}
+		return funcionarioService.findByCPF(cpf);
+	}
 }

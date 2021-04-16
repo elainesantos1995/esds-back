@@ -119,10 +119,15 @@ public class BeneficiosResource {
 	@GetMapping("beneficiosDoPrograma/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public List<Beneficio> buscarBeneficiosDeUmPrograma(@PathVariable Integer id) {
-		System.out.println("aqui");
+		System.out.println("Benefícios de um Programa");
 		return this.beneficios.listarBeneficiosPrograma(id);
 	}
 	
-	 
+	@GetMapping("inscricoes-contempladas/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public List<Beneficio> inscricoesContempladasPorBeneficio(@PathVariable Integer id) {
+		System.out.println("Inscrições contempladas por benefício");
+		return this.beneficios.inscricoesContempladasPorBeneficio(id);
+	} 
 	
 }

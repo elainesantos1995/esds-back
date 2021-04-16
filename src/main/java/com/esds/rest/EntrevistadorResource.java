@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -77,6 +76,8 @@ public class EntrevistadorResource {
 	@PutMapping("{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void atualizar(@PathVariable Integer id, @RequestBody FuncionarioEnderecoDTO funcionarioEnderecoDTO) {
+		
+		System.out.println("id a ser atualizado: "+ id);
 		
 		Endereco endereco = new Endereco();
 		endereco.setLogradouro(funcionarioEnderecoDTO.getLogradouro());

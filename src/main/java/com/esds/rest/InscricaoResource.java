@@ -134,6 +134,12 @@ public class InscricaoResource {
 		List<Inscricao> inscricoesDoPrograma = new ArrayList<Inscricao>();
 		List<Inscricao> inscricoesTotal = this.inscricoes.buscarInscricoesEmUmBeneficio(id);
 		
+		for(Inscricao insc: inscricoesTotal) {
+			insc.setStatus(StatusInscricao.EM_LISTA);
+			this.inscricoes.atualizar(insc.getId(), insc);
+	
+		}
+		
 		for(InscricaoDTO inscricaoDTO: inscricoes) {
 			Inscricao inscricao = this.inscricoes.buscarPorId(inscricaoDTO.getId());
 			inscricao.setStatus(StatusInscricao.DEFERIDA);
@@ -142,18 +148,12 @@ public class InscricaoResource {
 			this.inscricoes.atualizar(inscricaoDTO.getId(), inscricao);
 		}
 		
-		for(Inscricao insc: inscricoesTotal) {
-			if(insc.getStatus() == StatusInscricao.EM_ANALISE) {
-				insc.setStatus(StatusInscricao.EM_LISTA);
-				this.inscricoes.atualizar(insc.getId(), insc);
-			}
-		}
 		beneficio.setInscricoesContempladas(inscricoesDoPrograma);
 		
 		this.beneficios.atualizar(id, beneficio);
 		return beneficio.getInscricoesContempladas();
 	}
-	
+	 
 	@GetMapping("listagem/selecionados/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public List<InscricaoSelecionadaDTO> buscarInscricoesSelecionadas(@PathVariable Integer id){
@@ -161,7 +161,11 @@ public class InscricaoResource {
 		List<Inscricao> inscricoesRetornadas = this.inscricoes.buscarInscricoesSelecionadas(id);
 		List<InscricaoSelecionadaDTO> inscricoesContempladas = new ArrayList<InscricaoSelecionadaDTO>();
 		
+		System.out.println("Inscrições selecionadas");
+		System.out.println(inscricoesRetornadas.size());
+		
 		for(Inscricao insc: inscricoesRetornadas) {
+			
 			
 			InscricaoSelecionadaDTO insSelDTO = new InscricaoSelecionadaDTO();
 			insSelDTO.setId(insc.getId());

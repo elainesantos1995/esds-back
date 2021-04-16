@@ -61,5 +61,9 @@ public class BeneficioServiceImpl implements BeneficioService{
 	public List<Beneficio> listarBeneficiosPrograma(Integer id){
 		return beneficios.beneficioDeProgramas(id);
 	}
+	
+	public List<Beneficio> inscricoesContempladasPorBeneficio(Integer id){
+		return beneficios.inscricoesContempladasPorBeneficio(id);
+	}
 
 }

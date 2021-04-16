@@ -77,6 +77,8 @@ public class FacilitadorResource {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void atualizar(@PathVariable Integer id, @RequestBody FuncionarioEnderecoDTO funcionarioEnderecoDTO) {
 		
+		System.out.println("id a ser atualizado: "+ id);
+		
 		Endereco endereco = new Endereco();
 		endereco.setLogradouro(funcionarioEnderecoDTO.getLogradouro());
 		endereco.setNumero(funcionarioEnderecoDTO.getNumero());

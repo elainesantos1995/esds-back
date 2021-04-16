@@ -25,6 +25,7 @@ public class BeneficiarioServiceImpl implements BeneficiarioService{
 	}
 	
 	public void atualizar(Integer id, Beneficiario beneficiario) {
+		
 		Optional<Beneficiario> procurado = beneficiarios.findById(id);
 
 		if (procurado.isPresent()) {
@@ -51,8 +52,6 @@ public class BeneficiarioServiceImpl implements BeneficiarioService{
 	public Beneficiario buscarPorId(Integer id) {
 		 Beneficiario beneficiario = beneficiarios.findById(id)
 				 .orElseThrow(() -> 
-				 
-				 // new ResponseStatusException(HttpStatus.NOT_FOUND, "Não encontrado"));	Aqui
 				 new RegraDeNegocioException("Não foi possível localizar beneficiário com o ID informado!"));	
 
 		 return beneficiario;

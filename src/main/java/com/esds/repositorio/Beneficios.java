@@ -13,4 +13,6 @@ public interface Beneficios extends JpaRepository<Beneficio, Integer>{
 	@Query("FROM Beneficio b WHERE b.programa.id = :id")
 	List<Beneficio> beneficioDeProgramas(@Param("id") Integer id);
 
+	@Query("FROM Beneficio b JOIN FETCH b.inscricoesContempladas WHERE b.id = :id")
+	List<Beneficio> inscricoesContempladasPorBeneficio(@Param("id") Integer id);
 }

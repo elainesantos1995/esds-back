@@ -81,6 +81,8 @@ public class AssistenteSocialResource {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void atualizar(@PathVariable Integer id, @RequestBody FuncionarioEnderecoDTO funcionarioEnderecoDTO) {
 		
+		System.out.println("id a ser atualizado: "+ id);
+		
 		Endereco endereco = new Endereco();
 		endereco.setId(funcionarioEnderecoDTO.getIdEndereco());
 		endereco.setLogradouro(funcionarioEnderecoDTO.getLogradouro());

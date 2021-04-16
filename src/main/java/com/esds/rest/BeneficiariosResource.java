@@ -224,6 +224,8 @@ public class BeneficiariosResource{
 			beneficiario.setEmail(b.getEmail());
 			beneficiario.setDataNascimento(b.getDataNascimento());
 			
+			//Pode tá ainda mais lento por causa do trecho abaixo
+			
 			System.out.println("Aqui foto " + b.getImagem());
 			if(b.getImagem() != null) {		
 				final Optional<Imagem> retrievedImage = imagens.findById(b.getImagem().getId());

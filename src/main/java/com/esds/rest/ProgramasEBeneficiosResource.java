@@ -1,6 +1,7 @@
 package com.esds.rest;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,11 @@ import com.esds.dto.ProgramaDTO;
 import com.esds.modelo.Beneficio;
 import com.esds.modelo.ProgramaSocial;
 import com.esds.servico.impl.ProgramaSocialServiceImpl;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -117,6 +123,14 @@ public class ProgramasEBeneficiosResource{
 	public List<ProgramaSocial> buscarPorAno(@PathVariable Integer ano) {
 		System.out.println("Busca por ano");
 		return this.programas.findByAnoProgramaFetchBeneficio(ano);
+	}
+	
+	@GetMapping("/entity/pagination")
+	@ResponseStatus(HttpStatus.OK)
+	public Page<ProgramaSocial> findAllPageable(Pageable pageable) {
+	
+	Pageable sortedByAnoDesc = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),Sort.by("ano").descending());
+	return programas.findAllPageable(sortedByAnoDesc);
 	}
 }
 

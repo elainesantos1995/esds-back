@@ -4,7 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.esds.excecoes.RegraDeNegocioException;
 import com.esds.modelo.ProgramaSocial;
@@ -62,5 +65,11 @@ public class ProgramaSocialServiceImpl implements ProgramaSocialService{
 	
 	public List<ProgramaSocial> findByAnoProgramaFetchBeneficio(Integer ano){
 		return this.programas.findByAnoProgramaFetchBeneficio(ano);
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Page<ProgramaSocial> findAllPageable(Pageable pageable) {
+	return this.programas.findAll(pageable);
 	}
 }

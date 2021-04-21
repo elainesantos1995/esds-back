@@ -10,6 +10,10 @@ import java.util.zip.Deflater;
 import java.util.zip.Inflater;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -223,10 +227,7 @@ public class BeneficiariosResource{
 			beneficiario.setTelefone2(b.getTelefone2());
 			beneficiario.setEmail(b.getEmail());
 			beneficiario.setDataNascimento(b.getDataNascimento());
-			
-			//Pode tá ainda mais lento por causa do trecho abaixo
-			
-			System.out.println("Aqui foto " + b.getImagem());
+		
 			if(b.getImagem() != null) {		
 				final Optional<Imagem> retrievedImage = imagens.findById(b.getImagem().getId());
 				Imagem img = new Imagem(retrievedImage.get().getName(), retrievedImage.get().getType(),
@@ -317,6 +318,13 @@ public class BeneficiariosResource{
 		}
 	
 	
-	
+		@GetMapping("/entity/pagination")
+		@ResponseStatus(HttpStatus.OK)
+		public Page<Beneficiario> findAllPageable(Pageable pageable) {
+		
+		Pageable sortedByAnoDesc = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),Sort.by("nome").descending());
+		// return beneficiarios.findAllPageable(sortedByAnoDesc);
+			return beneficiarios.findByBeneficiarioFetchEagerEndereco(sortedByAnoDesc);
+		}
 
 }

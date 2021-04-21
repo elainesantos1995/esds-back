@@ -1,4 +1,5 @@
 package com.esds.security.jwt;
+
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -10,11 +11,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Service;
 
 import com.esds.RestSpringBootAppApplication;
-import com.esds.modelo.Endereco;
 import com.esds.modelo.Entrevistador;
 import com.esds.modelo.Funcionario;
-import com.esds.repositorio.Enderecos;
-import com.esds.servico.impl.EnderecoServiceImpl;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;

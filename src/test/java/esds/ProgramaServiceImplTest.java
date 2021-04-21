@@ -27,8 +27,6 @@ import com.esds.repositorio.Programas;
 import com.esds.servico.impl.BeneficioServiceImpl;
 import com.esds.servico.impl.ProgramaSocialServiceImpl;
 
-import junit.framework.TestCase;
-
 @RunWith(SpringRunner.class)
 public class ProgramaServiceImplTest {
 
@@ -116,24 +114,7 @@ public class ProgramaServiceImplTest {
 		when(programas.findById(Mockito.anyInt())).thenReturn(Optional.of(programa)).thenReturn(Optional.of(programa));
 		ProgramaSocial programaSocialRetornado = programaSocialServiceImpl.buscarPorId(1);
 		assertNotEquals(programaSocialRetornado.getId(), 1);
-	}
-	
-	@Test
-	public void testeCarregaProgramaComSucesso() {
-
-		when(programas.findById(Mockito.anyInt())).thenReturn(Optional.of(programa));
-		
-		ProgramaSocial programaRetornado = programaSocialServiceImpl.buscarPorId(programa.getId());
-		TestCase.assertEquals(programaRetornado.getId(), programa.getId());
-	}
-	
-	@Test(expected = RegraDeNegocioException.class)
-	public void testeCarregaProgramaNaoEncontrado() {
-
-		when(programas.findById(Mockito.anyInt())).thenReturn(Optional.empty());
-		
-		programaSocialServiceImpl.buscarPorId(0);
-	}
+	}	
 	
 	@Test
 	public void testeBuscarProgramaPorIdComSucesso() {
@@ -145,10 +126,31 @@ public class ProgramaServiceImplTest {
 	
 	@Test(expected = RegraDeNegocioException.class)
 	public void testeBuscarProgramaPorIdNaoEncontrado() {
-		
-		when(programas.findById(Mockito.anyInt())).thenReturn(Optional.empty());
-		ProgramaSocial programaRetornado = programaSocialServiceImpl.buscarPorId(1);
-		assertNotEquals(programaRetornado.getId(), 1);
+
+		when(programas.findById(Mockito.anyInt())).thenReturn(Optional.empty());		
+		ProgramaSocial retornado = programaSocialServiceImpl.buscarPorId(0);
+		Assert.assertNull(retornado);		
+	}
+	
+	@Test
+	public void testeCarregarTodosOsProgramasPorAnoComSucesso() {
+
+		List<ProgramaSocial> retornados = programaSocialServiceImpl.findByAnoProgramaFetchBeneficio(2021);
+		Assert.assertNotNull(retornados);
+	}
+	
+	@Test
+	public void testeCarregarTodosOsProgramasPorAnoComErroAnoInexistente() {
+
+		List<ProgramaSocial> retornados = programaSocialServiceImpl.findByAnoProgramaFetchBeneficio(2015);
+		Assert.assertTrue(retornados.size() == 0);
+	}
+	
+	@Test
+	public void testeCarregarTodosOsProgramasComSucesso() {
+
+		List<ProgramaSocial> retornados = programaSocialServiceImpl.buscarTodos();
+		Assert.assertNotNull(retornados);
 	}
 	
 	@Test

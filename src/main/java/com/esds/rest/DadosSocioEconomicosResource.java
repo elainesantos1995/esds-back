@@ -25,13 +25,13 @@ import com.esds.enumeracoes.QuantComodos;
 import com.esds.enumeracoes.QuantMembrosCrianca;
 import com.esds.enumeracoes.QuantMembrosFamilia;
 import com.esds.enumeracoes.RendaPerCapita;
-import com.esds.enumeracoes.Sexo;
 import com.esds.enumeracoes.TipoDeTrabalho;
 import com.esds.modelo.Beneficiario;
 import com.esds.modelo.DadosSocioEconomicos;
 import com.esds.servico.impl.BeneficiarioServiceImpl;
 import com.esds.servico.impl.DadosSocioEconomicosServiceImpl;
 import com.esds.utils.Selecao;
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/dadosSocioEconomicos")

@@ -107,8 +107,7 @@ public class ProgramasEBeneficiosResource{
 	
 	@GetMapping("{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public ProgramaSocial buscarPorId(@PathVariable Integer id){
-		
+	public ProgramaSocial buscarPorId(@PathVariable Integer id){		
 		return programas.buscarPorId(id);
 	}
 	

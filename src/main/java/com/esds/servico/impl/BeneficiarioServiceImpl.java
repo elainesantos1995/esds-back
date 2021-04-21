@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -66,12 +68,22 @@ public class BeneficiarioServiceImpl implements BeneficiarioService{
 		return beneficiarios.findByBeneficiarioFetchEagerEndereco();
 	}
 	
+	//
+	public Page<Beneficiario> findByBeneficiarioFetchEagerEndereco(Pageable pageable){
+		return beneficiarios.findByBeneficiarioFetchEagerEndereco(pageable);
+	}
+	
 	public List<Beneficiario> findByIdBeneficiarioFetchEndereco(Integer id){
 		return beneficiarios.findByIdBeneficiarioFetchEndereco(id);
 	}
 
 	public Beneficiario findByCPF(String cpf){
 		return beneficiarios.findByCPF(cpf);
+	}
+
+	@Override
+	public Page<Beneficiario> findAllPageable(Pageable pageable) {
+		return beneficiarios.findAll(pageable);
 	}
 
 }

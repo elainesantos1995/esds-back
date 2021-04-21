@@ -16,14 +16,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.esds.dto.BeneficioDTO;
-import com.esds.dto.InscricaoDTO;
 import com.esds.enumeracoes.Periodicidade;
-import com.esds.enumeracoes.StatusInscricao;
 import com.esds.modelo.Beneficio;
-import com.esds.modelo.Inscricao;
 import com.esds.modelo.ProgramaSocial;
 import com.esds.servico.impl.BeneficioServiceImpl;
-import com.esds.servico.impl.InscricaoServiceImpl;
 import com.esds.servico.impl.ProgramaSocialServiceImpl;
 
 @CrossOrigin(origins = "*")
@@ -36,9 +32,6 @@ public class BeneficiosResource {
 	
 	@Autowired
 	private ProgramaSocialServiceImpl programas;
-	
-	@Autowired
-	private InscricaoServiceImpl inscricoes;
 	
 	@PostMapping("{idPrograma}")
 	@ResponseStatus(HttpStatus.CREATED)

@@ -28,8 +28,6 @@ import com.esds.repositorio.Programas;
 import com.esds.servico.impl.BeneficioServiceImpl;
 import com.esds.servico.impl.ProgramaSocialServiceImpl;
 
-import junit.framework.TestCase;
-
 @RunWith(SpringRunner.class)
 public class BeneficioServiceImplTest {
 
@@ -73,7 +71,6 @@ public class BeneficioServiceImplTest {
 		programa.setVigenciaTermino(new Date());
 		beneficiosDoPrograma = new ArrayList<>();
 
-
 		beneficiosDoPrograma.add(beneficio);
 		programa.setBeneficios(beneficiosDoPrograma);
 		beneficio.setPrograma(programa);
@@ -91,8 +88,7 @@ public class BeneficioServiceImplTest {
 		
 		Beneficio beneficioNovo = beneficioServiceImpl.salvar(beneficio);		
 		assertEquals(null, beneficioNovo);
-	}
-		
+	}		
 	
 	@Test(expected = RegraDeNegocioException.class)
 	public void testeAtualizarBeneficioComSucesso() {
@@ -126,23 +122,6 @@ public class BeneficioServiceImplTest {
 	}
 	
 	@Test
-	public void testeCarregaBeneficioComSucesso() {
-
-		when(beneficios.findById(Mockito.anyInt())).thenReturn(Optional.of(beneficio));
-		
-		Beneficio beneficioRetornado = beneficioServiceImpl.buscarPorId(beneficio.getId());
-		TestCase.assertEquals(beneficioRetornado.getId(), beneficio.getId());
-	}
-	
-	@Test(expected = RegraDeNegocioException.class)
-	public void testeCarregaBeneficioNaoEncontrado() {
-
-		when(beneficios.findById(Mockito.anyInt())).thenReturn(Optional.empty());
-		
-		beneficioServiceImpl.buscarPorId(0);
-	}
-	
-	@Test
 	public void testeBuscarBeneficioPorIdComSucesso() {
 		
 		when(beneficios.findById(Mockito.anyInt())).thenReturn(Optional.of(beneficio)).thenReturn(Optional.of(beneficio));
@@ -152,14 +131,13 @@ public class BeneficioServiceImplTest {
 	
 	@Test(expected = RegraDeNegocioException.class)
 	public void testeBuscarBeneficioPorIdNaoEncontrado() {
-		
-		when(beneficios.findById(Mockito.anyInt())).thenReturn(Optional.empty());
-		Beneficio beneficioRetornado = beneficioServiceImpl.buscarPorId(1);
-		assertNotEquals(beneficioRetornado.getId(), 1);
+
+		when(beneficios.findById(Mockito.anyInt())).thenReturn(Optional.empty());		
+		beneficioServiceImpl.buscarPorId(0);
 	}
 	
 	@Test
-	public void testeRemoveBeneficioComSucesso() {
+	public void testeRemoverBeneficioComSucesso() {
 
 		when(beneficios.findById(Mockito.anyInt())).thenReturn(Optional.of(beneficio)).thenReturn(Optional.empty());
 		beneficioServiceImpl.remover(1);

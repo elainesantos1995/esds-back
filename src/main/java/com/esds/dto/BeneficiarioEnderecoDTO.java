@@ -19,7 +19,6 @@ public class BeneficiarioEnderecoDTO {
 	private String telefone1;
 	private String telefone2;
 	private String email;
-	private Integer idFoto;
 	
 	private Integer idEndereco;
 	private String logradouro;

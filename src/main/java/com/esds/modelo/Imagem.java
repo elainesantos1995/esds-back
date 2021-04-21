@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 
 @Entity
 public class Imagem {
@@ -23,7 +22,7 @@ public class Imagem {
 	
 	//Aterar a tabela após o create para possibilitar a inserção de imagens maiores
 	//ALTER TABLE esds.imagem MODIFY pic_byte MEDIUMBLOB;
-	@Column(name = "picByte")
+	@Column(name = "picByte", length=1000000)
 	private byte[] picByte;   
 
 	public Imagem() {

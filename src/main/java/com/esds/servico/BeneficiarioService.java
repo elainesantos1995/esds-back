@@ -2,6 +2,9 @@ package com.esds.servico;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.esds.modelo.Beneficiario;
 
 public interface BeneficiarioService {
@@ -12,5 +15,5 @@ public interface BeneficiarioService {
 	Beneficiario buscarPorId(Integer id);
 	List<Beneficiario> buscarTodos();
 	
-
+	Page<Beneficiario> findAllPageable(Pageable pageable);
 }

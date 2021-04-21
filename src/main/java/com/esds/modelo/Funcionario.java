@@ -11,15 +11,12 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
 import com.esds.enumeracoes.Sexo;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "TipoFuncionario")
-//@Table(uniqueConstraints={@UniqueConstraint(columnNames={"cpf"})})
 public class Funcionario {
 	
 	@Id 
@@ -33,7 +30,6 @@ public class Funcionario {
 	private String matricula;	
 	private String nome;	
 	private Date dataNascimento;
-//	@Column(unique = true)
 	private String cpf;	
 	private String rg;	
 	private String rgDataEmissao;	

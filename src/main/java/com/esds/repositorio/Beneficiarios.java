@@ -9,18 +9,19 @@ import org.springframework.data.repository.query.Param;
 import com.esds.modelo.Beneficiario;
 import com.esds.modelo.Endereco;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 public interface Beneficiarios extends JpaRepository<Beneficiario, Integer> {
 	
 	@Query(value = "SELECT e.* FROM endereco e LEFT JOIN beneficiario b ON e.id=b.id", nativeQuery = true)
 	public Endereco retornarEndereco();
 	
-	//Devo deletar, preciso ver
-	@Query(value = "select e.* from endereco e left join beneficiario b on e.id=b.id", nativeQuery = true)
-	public Endereco findByIdOrderById();
-	
-	// Buscar beneficiário com endereço e com imagem
-	@Query("FROM Beneficiario b JOIN FETCH b.endereco JOIN FETCH b.imagem")
+	@Query(value = "SELECT * FROM Beneficiario as b INNER JOIN Endereco as e ON b.endereco_id = e.id INNER JOIN Imagem as i ON b.imagem_id = i.id", nativeQuery = true) 
 	List<Beneficiario> findByBeneficiarioFetchEagerEndereco();
+	
+	@Query(value = "SELECT * FROM Beneficiario as b INNER JOIN Endereco as e ON b.endereco_id = e.id INNER JOIN Imagem as i ON b.imagem_id = i.id", nativeQuery = true) 
+	Page<Beneficiario> findByBeneficiarioFetchEagerEndereco(Pageable pageable);
 	
 	//getByID
 	@Query("FROM Beneficiario b JOIN FETCH b.endereco WHERE b.id = :id")

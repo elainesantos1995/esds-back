@@ -92,21 +92,6 @@ public class InscricaoServiceImplTest {
 	}	
 	
 	@Test
-	public void testeRemoveInscricaoComSucesso() {
-
-		when(inscricoes.findById(Mockito.anyInt())).thenReturn(Optional.of(inscricao)).thenReturn(Optional.empty());
-		inscricaoService.remover(1);
-		
-	}
-	
-	@Test(expected = RegraDeNegocioException.class)
-	public void testeRemoveInscricaoNaoEncontrado() {
-
-		when(inscricoes.findById(Mockito.anyInt())).thenReturn(Optional.empty());
-		inscricaoService.remover(1);
-	}
-	
-	@Test
 	public void testeBuscarInscricaoPorIdComSucesso() {
 		
 		when(inscricoes.findById(Mockito.anyInt())).thenReturn(Optional.of(inscricao)).thenReturn(Optional.of(inscricao));
@@ -122,12 +107,61 @@ public class InscricaoServiceImplTest {
 	}
 	
 	@Test
+	public void testeRemoveInscricaoComSucesso() {
+
+		when(inscricoes.findById(Mockito.anyInt())).thenReturn(Optional.of(inscricao)).thenReturn(Optional.empty());
+		inscricaoService.remover(1);		
+	}
+	
+	@Test(expected = RegraDeNegocioException.class)
+	public void testeRemoveInscricaoNaoEncontrado() {
+
+		when(inscricoes.findById(Mockito.anyInt())).thenReturn(Optional.empty());
+		inscricaoService.remover(1);
+	}
+	
+	@Test
 	public void testeBuscarInscricoes() {
 		List<Inscricao> inscricoes = inscricaoService.buscarTodos();
-		assertThatObject(inscricoes);
-	}
+		Assert.assertNotNull(inscricoes);
+	}	
+	
+	@Test
+	public void testeBuscarInscricoesSelecionadasPorIdComSucesso() {
+		List<Inscricao> inscricoes = inscricaoService.buscarInscricoesSelecionadas(1);
+		Assert.assertNotNull(inscricoes);
+	}	
+	
+	@Test
+	public void testeBuscarInscricoesDeUmBeneficiarioPorIdComSucesso() {
+		List<Inscricao> inscricoes = inscricaoService.buscarInscricoesDeUmBeneficiario(21);
+		Assert.assertNotNull(inscricoes);
+	}	
+	
+	@Test
+	public void testeBuscarInscricoesDeUmBeneficioPorIdComSucesso() {
+		List<Inscricao> inscricoes = inscricaoService.buscarInscricoesEmUmBeneficio(1);
+		Assert.assertNotNull(inscricoes);
+	}	
+	
+//	@Test
+//	public void testeBuscarInscricoesSelecionadasPorIdComErro() {
+//		List<Inscricao> inscricoes = inscricaoService.buscarInscricoesSelecionadas(0);
+//		Assert.assertNull(inscricoes);
+//	}	
+//	
+//	@Test
+//	public void testeBuscarInscricoesDeUmBeneficiarioPorIdComErro() {
+//		List<Inscricao> inscricoes = inscricaoService.buscarInscricoesDeUmBeneficiario(0);
+//		Assert.assertNull(inscricoes);
+//	}	
+//	
+//	@Test
+//	public void testeBuscarInscricoesDeUmBeneficioPorIdComErro() {
+//		List<Inscricao> inscricoes = inscricaoService.buscarInscricoesEmUmBeneficio(0);
+//		Assert.assertNull(inscricoes);
+//	}	
 
-	
-	
+
 
 }

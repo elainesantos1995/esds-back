@@ -2,13 +2,8 @@ package com.esds.dto;
 
 import java.util.Date;
 import java.util.List;
-
-import org.springframework.data.annotation.ReadOnlyProperty;
-
-import com.esds.enumeracoes.StatusInscricao;
 import com.esds.modelo.Beneficiario;
 import com.esds.modelo.Beneficio;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class InscricaoDTO {
 	

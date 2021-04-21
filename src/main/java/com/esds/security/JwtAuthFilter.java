@@ -10,13 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import org.springframework.security.web.header.writers.frameoptions.RegExpAllowFromStrategy;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.esds.security.jwt.JwtService;
 import com.esds.servico.impl.FuncionarioServiceImpl;
+
 
 /**
  * Classe que faz a integração entre o o JWT Service e o Spring Security

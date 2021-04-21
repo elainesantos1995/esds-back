@@ -1,14 +1,12 @@
 package com.esds.servico.impl;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.esds.modelo.AssistenteSocial;
-import com.esds.modelo.Funcionario;
 import com.esds.repositorio.Funcionarios;
 import com.esds.servico.AssistenteSocialService;
 

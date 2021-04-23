@@ -46,10 +46,7 @@ public class DadosSocioEconomicosResource {
 	@PostMapping("{idBeneficiario}")
 	@ResponseStatus(HttpStatus.CREATED)
 	public DadosSocioEconomicos salvar(@PathVariable String idBeneficiario, @RequestBody DadosSocioEconomicosDTO dadosDTO) {
-		
-		//Não tá pegando as doenças crôncas
-		//Não tá pegando os nomes dos beneficiários dependentes
-		
+			
 		DadosSocioEconomicos dadosSocioeconomicos = new DadosSocioEconomicos();
 		
 		ComposicaoDomicilio composicaoDomicilio = ComposicaoDomicilio.valueOf(dadosDTO.getComposicaoDomicilio());
@@ -91,8 +88,10 @@ public class DadosSocioEconomicosResource {
 		Date dataUltimaAtualizao = new Date();
 		dadosSocioeconomicos.setDataUltimaAtualizacao(dataUltimaAtualizao);
 		
-//		dadosSocioeconomicos.setParecer(dadosDTO.getParecer());
-		
+		/**
+		 * Utilizado para calcular a pontuação socioeconômica do beneficiário
+		 * 
+		 * */
 		Selecao selecao = new Selecao();
 		
 		dadosSocioeconomicos.setPontuacao(selecao.calcularPontuacao(dadosSocioeconomicos));

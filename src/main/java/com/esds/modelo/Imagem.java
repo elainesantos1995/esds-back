@@ -20,8 +20,6 @@ public class Imagem {
 
 	private String type;
 	
-	//Aterar a tabela após o create para possibilitar a inserção de imagens maiores
-	//ALTER TABLE esds.imagem MODIFY pic_byte MEDIUMBLOB;
 	@Column(name = "picByte", length=1000000)
 	private byte[] picByte;   
 
